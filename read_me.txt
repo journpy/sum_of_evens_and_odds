@@ -1,0 +1,1 @@
+A python program that calculates the sum of a given range of numbers with specified start, end and step arguments.
