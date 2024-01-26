@@ -1,49 +1,41 @@
-import sys
+"""
+This program is based on Carl Friedrich Gauss' formula
+for calculating the sum of n consecutive integers:
+S = n(n+1) / 2.
+"""
 
 
-def pos_num_sums(i, n, k):
-    """Return the sum of positive odd and even numbers of a range of numbers."""
-    sum_of_even_nums = sum((j for j in range(i, n, k) if j%2 == 0))
-    sum_of_odd_nums = sum((j for j in range(i, n, k) if j%2 != 0))
-    return (f"\nSum of even numbers from {i} to {n}, step {k} = "
-            f"{sum_of_even_nums}; Sum of odd numbers from {i} to {n}, "
-            f"step {k} = {sum_of_odd_nums}.\n")
-
-
-def neg_num_sums(i, n, k):
-    """Return the sum of negative odd and even numbers of a range of numbers."""
-    sum_of_even_nums = sum((j for j in range(i, n, k) if j%2 == 0))
-    sum_of_odd_nums = sum((j for j in range(i, n, k) if j%2 != 0))
-    return (f"\nSum of even numbers from {i} to {n}, step {k} = "
-            f"{sum_of_even_nums}; Sum of odd numbers from {i} to {n}, "
-            f"step {k} = {sum_of_odd_nums}.\n")
-
-
-
-# main program loop
-while True:
+def user_input():
+    """ Accept user input and return start, stop and step."""
     try:
-        i = input("\nEnter a starting number or 'q' to quit: ")
-        if i == 'q' or i == 'Q':
-            sys.exit('Goodbye')
-        else:
-            i = int(i)
-        n = input("Enter an ending number or 'q' to quit: ")
-        if n == 'q' or n == 'Q':
-            sys.exit('Goodbye')
-        else:
-            n = int(n)
-        k = input("Enter a step or 'q' to quit: ")
-        if k == 'q' or k == 'Q':
-            sys.exit('Goodbye')
-        else:
-            k = int(k)
-    except(ValueError):
-        print("\nEnter a valid number ⚠️")
+        start = int(input("Enter your start integer (i): "))
+        stop = int(input("Enter your stop integer (n): "))
+        step = int(input("Enter your step (k): "))
+    except ValueError:
+        print("Enter an integer for i, n & k.")
     else:
-        if k < 0:
-            print(neg_num_sums(i, n, k))
-        elif k > 0:
-            print(pos_num_sums(i, n, k))
+        return start, stop, step    
 
-        
+
+def sum_gauss_formula():
+    """Return the omplementation of Gauss' formula."""
+    start, stop, step = user_input()
+    # unpack values based on start, stop and step params
+    seq = range(start, stop, step)
+    sum_of_consec_ints = (len(seq)*(seq[0] + seq[-1])) // 2
+    return sum_of_consec_ints
+
+
+def run_program():
+    """Main program loop."""
+    print(__doc__)
+    while True: 
+        cont = input("Enter any  character to use the program or 'q' "
+                        "to quit: ").lower()
+        if cont in ['q', 'quit']:
+            break
+        else:
+            print(sum_gauss_formula())
+
+
+run_program()
